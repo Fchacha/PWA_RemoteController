@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
 	background-color: black;
 	color: white;
 	font-family: helvetica, arial, sans-serif;
@@ -19,7 +20,8 @@ section {
 	background-color: #171717;
 }
 
-h1, h2 {
+h1,
+h2 {
 	line-height: 1;
 	text-transform: uppercase;
 }
@@ -56,7 +58,8 @@ a {
 	font-weight: bold;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
 	color: mediumaquamarine;
 }
 
@@ -74,4 +77,30 @@ code {
 
 code.image {
 	background-color: lightyellow;
+}
+
+#chat {
+	display: inline-block;
+	max-width: 40%;
+	min-width: 20%;
+	width: 20%;
+	background-color: darkgrey;
+}
+
+#chat pre {
+	display: block;
+	width: 75%;
+}
+
+pre.sent {
+	text-align: left;
+	margin-left: 4pt;
+	background-color: darkcyan;
+}
+
+pre.received {
+	text-align: right;
+	margin-left: auto;
+	margin-right: 4pt;
+	background-color: chocolate;
 }

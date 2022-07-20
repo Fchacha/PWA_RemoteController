@@ -100,7 +100,7 @@ function chatChannel(e) {
         console.log('chat channel is open', e);
     }
     _chatChannel.onmessage = function(e) {
-        chat.innerHTML = chat.innerHTML + "<pre>" + e.data + "</pre>"
+        chat.innerHTML = chat.innerHTML + "<pre class=received>" + e.data + "</pre>"
     }
     _chatChannel.onclose = function() {
         console.log('chat channel closed');
