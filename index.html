@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>PWA Remote Controller</title>
+    <link rel="canonical" href="https://fchacha.github.io/PWA_RemoteController" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Icons and Colors -->
+    <link rel="manifest" href="./site.webmanifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="./favicons/safari-pinned-tab.svg" color="#f89d21">
+    <link rel="shortcut icon" href="./favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="./favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="./favicons/browserconfig.xml">
+    <meta name="theme-color" content="#f89d21">
+
+    <!-- SEO and Social Sharing and SEO -->
+    <meta name="description" content="Progressive Web App (PWA) test" />
+    <meta name="robots" content="noodp" />
+    <meta name="keywords"
+        content="progressive web app, progressive web application, pwa, pwa progressive web app, pwa progressive web application, progressive app, basic progressive web app, basic progressive web application, basic pwa, example progressive web app, example progressive web application, example pwa, progressive web app basic, progressive web app builder, progressive web app example, progressive web app sample, sample progressive web app, sample progressive web application" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PWA" />
+    <meta property="og:description" content=" Progressive Web App (PWA) test" />
+    <meta property="og:url" content="https://fchacha.github.io/PWA_RemoteController/" />
+    <meta property="og:site_name" content=" PWA" />
+    <meta property="og:image" content="https://fchacha.github.io/PWA_RemoteController/share.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PWA" />
+    <meta name="twitter:description" content=" Progressive Web App (PWA) test" />
+    <meta name="twitter:image" content="https://fchacha.github.io/PWA_RemoteController/share.jpg" />
+    <meta name="twitter:creator" content="@florianchavagnieux" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Javscript -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker && navigator.serviceWorker.register("./sw.js");
+            });
+        }
+    </script>
+    <script defer src="./main.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <a href="./" class="logo" aria-label="Logo">
+                <img src="logo.png" alt="Logo">
+            </a>
+            <h1>Simple Progressive Web App (PWA) template</h1>
+        </div>
+    </header>
+
+    <section>
+        <div>
+            <div>
+                <h2>Local</h2>
+                <textarea id=localOffer></textarea>
+                <button id=localOfferSet>CreateOffer</button>
+            </div>
+            <div>
+                <h2>Remote</h2>
+                <textarea id="remoteOffer" placeholder="Paste remote SDP"></textarea>
+                <button id=remoteOfferGot>Answer</button>
+            </div>
+        </div>
+        <div id="chat" style="overflow:auto;"></div>
+        <div>
+            <br><br>
+            <form action="" onsubmit="event.preventDefault();return sendMsg();">
+                <input id=sendTxt type="text" name="" placeholder="chat here">
+                <button type="submit">send</button>
+            </form>
+        </div>
+        <script src="scripts/plainwebrtc.js"></script>
+    </section>
+
+    <footer>
+    </footer>
+
+</body>
+
+</html>
