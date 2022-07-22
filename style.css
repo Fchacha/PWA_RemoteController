@@ -87,19 +87,23 @@ code.image {
 	background-color: darkgrey;
 }
 
-#chat pre {
+#chat p {
 	display: block;
 	width: 75%;
+	padding: 0.25rem;
+	border-radius: 0.5rem;
 }
 
-pre.sent {
+p.received {
 	text-align: left;
 	margin-left: 4pt;
 	background-color: darkcyan;
 }
 
-pre.received {
+p.sent {
 	text-align: right;
+	word-wrap: normal;
+	height: fit-content;
 	margin-left: auto;
 	margin-right: 4pt;
 	background-color: chocolate;

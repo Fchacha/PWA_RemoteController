@@ -1,7 +1,7 @@
 var conf = { iceServers: [{ "urls": "stun:stun.l.google.com:19302" }] };
-var signaler = new SignalingAPI();
 var pc = new RTCPeerConnection(conf);
-var localStream, chatEnabled = true, context, source,
+var signaler = new SignalingAPI();
+var localStream, chatEnabled = true, context, source, hosting = false,
     _chatChannel,
     bytesPrev = 0;
 
@@ -9,18 +9,20 @@ function errHandler(err) {
     console.log(err);
 }
 
-// navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-//     localStream = stream;
-//     micused.innerHTML = localStream.getAudioTracks()[0].label;
-//     pc.addStream(stream);
-//     local.srcObject = stream;
-//     local.muted = true;
-// }).catch(errHandler);
+/**
+ * 
+ * @param {string} txt 
+ * @param {boolean} fromMe 
+ */
+function AddMsgToChat(txt, fromMe) {
+    chat.innerHTML = chat.innerHTML + `<p class="${fromMe ? 'sent' : 'received'}">${txt}</p>`;
+
+}
 
 function sendMsg() {
     var text = sendTxt.value;
-    chat.innerHTML = chat.innerHTML + "<pre class=sent>" + text + "</pre>";
     _chatChannel.send(text);
+    AddMsgToChat(text, true)
     sendTxt.value = "";
     return false;
 }
@@ -37,11 +39,15 @@ pc.onicecandidate = function (e) {
     var cand = e.candidate;
     if (!cand) {
         console.log('iceGatheringState complete\n', pc.localDescription.sdp);
-        localOffer.value = JSON.stringify(pc.localDescription);
+        // answer the host after ice gather has finished
+        if (!hosting) {
+            signaler.answerHost(JSON.stringify(pc.localDescription));
+        }
     } else {
         console.log(cand.candidate);
     }
 }
+
 pc.oniceconnectionstatechange = function () {
     console.log('iceconnectionstatechange: ', pc.iceConnectionState);
 }
@@ -55,46 +61,42 @@ pc.onconnection = function (e) {
 }
 
 signaler.onRemoteSDPReceived = (sdp) => {
-    var _remoteOffer = new RTCSessionDescription(sdp);
-    console.log(_remoteOffer);
+    var _remoteOffer = new RTCSessionDescription(JSON.parse(sdp));
+
     pc.setRemoteDescription(_remoteOffer).then(function () {
         console.log('setRemoteDescription ok');
         if (_remoteOffer.type == "offer") {
             pc.createAnswer().then(function (description) {
                 console.log('createAnswer 200 ok \n', description);
                 pc.setLocalDescription(description).then(function () {
-                    signaler.answerHost(JSON.stringify(description));
                 }).catch(errHandler);
             }).catch(errHandler);
-        } else {
-            remoteOffer.value = _remoteOffer.sdp;
         }
     }).catch(err => console.log(err));
 };
 
-JoinSession.onclick = function () {
-    // var _remoteOffer = new RTCSessionDescription(JSON.parse(remoteOffer.value));
-    // console.log(_remoteOffer);
-    // pc.setRemoteDescription(_remoteOffer).then(function () {
-    //     console.log('setRemoteDescription ok');
-    //     if (_remoteOffer.type == "offer") {
-    //         pc.createAnswer().then(function (description) {
-    //             console.log('createAnswer 200 ok \n', description);
-    //             pc.setLocalDescription(description).then(function () { }).catch(errHandler);
-    //         }).catch(errHandler);
-    //     }
-    // }).catch(errHandler);
+signaler.onRoomCodeReceived = (code) => { sessionCode.innerHTML = '<p/>' + code + '<p>' };
 
+
+JoinSession.onclick = function () {
+    host.style.display = "none";
+    guest.style.display = "none";
+    
     // send room code to server
     signaler.join(remoteOffer.value);
 }
 
 HostSession.onclick = function () {
+    hosting = true;
+
+    host.style.display = "none";
+    guest.style.display = "none";
+
     if (chatEnabled) {
         _chatChannel = pc.createDataChannel('chatChannel');
-
         chatChannel(_chatChannel);
     }
+
     pc.createOffer().then(des => {
         console.log('createOffer ok ');
         pc.setLocalDescription(des).then(() => {
@@ -102,15 +104,10 @@ HostSession.onclick = function () {
                 if (pc.iceGatheringState == "complete") {
                     console.log('ICE gathering state: complete');
                     return;
-                } else {
-                    console.log('after GetherTimeout');
-                    localOffer.value = JSON.stringify(pc.localDescription);
                 }
             }, 2000);
             console.log('setLocalDescription ok');
-
             signaler.host(JSON.stringify(pc.localDescription));
-
         }).catch(errHandler);
         // For chat
     }).catch(errHandler);
@@ -121,7 +118,7 @@ function chatChannel(e) {
         console.log('chat channel is open', e);
     }
     _chatChannel.onmessage = function (e) {
-        chat.innerHTML = chat.innerHTML + "<pre class=received>" + e.data + "</pre>"
+        AddMsgToChat(e.data, false);
     }
     _chatChannel.onclose = function () {
         console.log('chat channel closed');
@@ -143,23 +140,3 @@ function Stats() {
         }
     });
 }
-
-/* Summary
-    //setup your video
-    pc = new RTCPeerConnection
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-    pc.addStream(stream)
-
-    //prepare your sdp1
-    pc.createOffer() - des
-    pc.setLocalDescription(des)
-    pc.onicecandidate
-    pc.localDescription
-    
-    //create sdp from sdp1
-    _remoteOffer = new RTCSessionDescription sdp
-    pc.setRemoteDescription(_remoteOffer)
-    _remoteOffer.type == "offer" && pc.createAnswer() - desc
-    pc.setLocalDescription(description)
-    pc.onaddstream
-*/
