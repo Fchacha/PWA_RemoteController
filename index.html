@@ -59,32 +59,30 @@
             <a href="./" class="logo" aria-label="Logo">
                 <img src="logo.png" alt="Logo">
             </a>
-            <h1>Simple Progressive Web App (PWA) template</h1>
+            <h3>Simple Progressive Web App (PWA) template</h3>
         </div>
     </header>
 
     <section>
         <div>
-            <div>
-                <h2>Local</h2>
+            <div id="host">
                 <textarea id=localOffer></textarea>
-                <button id=localOfferSet>CreateOffer</button>
+                <button id=HostSession>Host</button>
+                <div id=sessionCode></div>
             </div>
-            <div>
-                <h2>Remote</h2>
-                <textarea id="remoteOffer" placeholder="Paste remote SDP"></textarea>
-                <button id=remoteOfferGot>Answer</button>
+            <div id="guest">
+                <textarea id="remoteOffer" placeholder="Paste join code"></textarea>
+                <button id=JoinSession>Join</button>
             </div>
         </div>
-        <div id="chat">
-        </div>
-        <div>
-            <br><br>
+        <div id="chat"></div>
+        <div style="margin-top: 8px;">
             <form action="" onsubmit="event.preventDefault();return sendMsg();">
                 <input id=sendTxt type="text" name="" placeholder="chat here">
                 <button type="submit">send</button>
             </form>
         </div>
+        <script src="scripts/signaling.js"></script>
         <script src="scripts/plainwebrtc.js"></script>
     </section>
 
