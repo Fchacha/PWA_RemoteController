@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const webSocketServer = require('websocket').server;
 const bodyParser = require('body-parser');
 const webServerConfig = require('../config/web-server.js');
+const { client } = require('websocket');
 
 let httpServer;
 
@@ -89,6 +90,12 @@ function initialise() {
                 } else {
                     connection.send(JSON.stringify({ type: 'error', message: 'unknown message type' }));
                 }
+            });
+
+            // handle remove client upon disconnection
+            connection.on('close', function(code, desc) {
+                console.log(userID, 'disconnected with code', code);
+                delete clients[userID];
             });
         });
 
