@@ -64,5 +64,7 @@ class SignalingAPI {
     }
 }
 
-SignalingAPI.wss = 'wss';
-SignalingAPI.wsUri = '://localhost:3002';
+SignalingAPI.wss = 'wss://';
+SignalingAPI.wsUri = 'localhost:3002';
+
+changeserver.onclick = () => { SignalingAPI.wsUri = serverURL.value; }
