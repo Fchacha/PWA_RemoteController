@@ -13,10 +13,6 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
     function joinLauncher() {
         host.style.display = "none";
         guest.style.display = "none";
-        document.getElementById('webclientContainer').remove();
-        document.getElementById('webgl').remove();
-        document.getElementById('video-player').remove();
-        document.getElementById('ready-player-me-frame').remove();
 
         // send room code to server
         signaler.join(remoteOffer.value);
