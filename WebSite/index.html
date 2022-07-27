@@ -68,21 +68,23 @@
 
     <!-- Remote control connection -->
     <section id="session" class="hidden">
-        <section>
+        <section id="serverSelection">
             <textarea id="serverURL" rows="1" placeholder="localhost"></textarea>
             <button id="changeserver">update server</button>
         </section>
-        <section id="host">
-            <button id=HostSession>Host</button>
-        </section>
-        <section id="hostRoomCode" style="display: none;">
-            <h2 id="sessionCode" class="enable-select"></h2>
-            <div id="room_qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
-        </section>
-        <section id="guest">
-            <button id="ScanQR">scanQR</button>
-            <textarea id="remoteOffer" rows="1" placeholder="Paste join code"></textarea>
-            <button id="JoinSession">Join</button>
+        <section id="RTCconnection" style="display: none;">
+            <section id="host">
+                <button id=HostSession>Host</button>
+            </section>
+            <section id="hostRoomCode" style="display: none;">
+                <h2 id="sessionCode" class="enable-select"></h2>
+                <div id="room_qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+            </section>
+            <section id="guest">
+                <button id="ScanQR">scanQR</button>
+                <textarea id="remoteOffer" rows="1" placeholder="Paste join code"></textarea>
+                <button id="JoinSession">Join</button>
+            </section>
         </section>
     </section>
 

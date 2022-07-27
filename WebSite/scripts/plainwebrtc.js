@@ -212,8 +212,10 @@ ScanQR.onclick = function () {
                 remoteController.classList.remove('hidden');
                 remoteController.style.display = 'inline-flex';
                 joinLauncher(result);
+                qrScanner.stop();
             },
             {});
+        qrScanner.start();
     });
 };
 

@@ -3,7 +3,7 @@ class SignalingAPI {
         this.connectionAttempts = 0;
         this.onRoomCodeReceived;
         this.onRemoteSDPReceived;
-        this._setupClient();
+        // this._setupClient();
     }
 
     _setupClient() {
@@ -15,6 +15,8 @@ class SignalingAPI {
             console.log('WebSocket client Connected', ev);
             session.classList.remove('hidden');
             session.style.display = 'flexible';
+            RTCconnection.style.display = 'block';
+            serverSelection.style.display = 'none';
         };
 
         this.client.onclose = (ev) => {
@@ -34,6 +36,8 @@ class SignalingAPI {
             }
         };
         this.client.onerror = (ev) => {
+            RTCconnection.style.display = 'none';
+            serverSelection.style.display = 'block';
             var timeout = this.connectionAttempts > 3 ? 60 : 15;
             console.log(`Unable to connect to WebRTC Server retrying in ${timeout}s`);
             window.setTimeout(() => {
@@ -67,4 +71,4 @@ class SignalingAPI {
 SignalingAPI.wss = 'wss://';
 SignalingAPI.wsUri = 'localhost:3002';
 
-changeserver.onclick = () => { SignalingAPI.wsUri = serverURL.value; }
+changeserver.onclick = () => { SignalingAPI.wsUri = serverURL.value; signaler._setupClient(); };
