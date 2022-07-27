@@ -57,6 +57,7 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
         host.style.display = "none";
         guest.style.display = "none";
         hostRoomCode.style.display = "block"
+        console.log('room code: ', code);
         var qrcode = new QRCode(document.getElementById("room_qrcode"), {
             width: 100,
             height: 100
