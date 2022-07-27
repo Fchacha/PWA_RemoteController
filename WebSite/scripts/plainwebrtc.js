@@ -10,12 +10,13 @@ const CHAT_CHANNEL_KEY = 'chatChannel';
 var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input); };
 /// Session
 {
-    function joinLauncher() {
+    function joinLauncher(roomCode) {
         host.style.display = "none";
         guest.style.display = "none";
+        scanview.style.display = "none";
 
         // send room code to server
-        signaler.join(remoteOffer.value);
+        signaler.join(roomCode);
     }
 
     function hostLauncher() {
@@ -48,6 +49,33 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
 {
     function errHandler(err) {
         console.log(err);
+    }
+
+    function roomCodeReceivedHandle(code) {
+        sessionCode.innerHTML = code;
+        hosting = true;
+        host.style.display = "none";
+        guest.style.display = "none";
+        hostRoomCode.style.display = "block"
+        var qrcode = new QRCode(document.getElementById("room_qrcode"), {
+            width: 100,
+            height: 100
+        });
+        qrcode.makeCode(code);
+    }
+
+    function remoteSDPReceivedHandle(sdp) {
+        var _remoteOffer = new RTCSessionDescription(JSON.parse(sdp));
+
+        pc.setRemoteDescription(_remoteOffer).then(function () {
+            console.log('setRemoteDescription ok');
+            if (_remoteOffer.type == "offer") {
+                pc.createAnswer().then(function (description) {
+                    console.log('createAnswer 200 ok \n', description);
+                    pc.setLocalDescription(description).then(function () { }).catch(errHandler);
+                }).catch(errHandler);
+            }
+        }).catch(err => console.log(err));
     }
 }
 
@@ -146,26 +174,9 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
     }
 
     /// Signaler
-    signaler.onRoomCodeReceived = (code) => {
-        sessionCode.innerHTML = code;
-        hosting = true;
-        host.style.display = "none";
-        guest.style.display = "none";
-    };
+    signaler.onRoomCodeReceived = roomCodeReceivedHandle;
 
-    signaler.onRemoteSDPReceived = (sdp) => {
-        var _remoteOffer = new RTCSessionDescription(JSON.parse(sdp));
-
-        pc.setRemoteDescription(_remoteOffer).then(function () {
-            console.log('setRemoteDescription ok');
-            if (_remoteOffer.type == "offer") {
-                pc.createAnswer().then(function (description) {
-                    console.log('createAnswer 200 ok \n', description);
-                    pc.setLocalDescription(description).then(function () { }).catch(errHandler);
-                }).catch(errHandler);
-            }
-        }).catch(err => console.log(err));
-    };
+    signaler.onRemoteSDPReceived = remoteSDPReceivedHandle;
 }
 
 function Stats() {
@@ -188,8 +199,24 @@ HostSession.onclick = hostLauncher;
 JoinSession.onclick = function () {
     remoteController.classList.remove('hidden');
     remoteController.style.display = 'inline-flex';
-    joinLauncher();
+    joinLauncher(remoteOffer.value);
 };
+ScanQR.onclick = function () {
+    import('./libs/QRSCANNERJS/qr-scanner.min.js').then((module) => {
+        const QrScanner = module.default;
+
+        const qrScanner = new QrScanner(
+            scanview,
+            result => {
+                console.log('decoded QR code:', result);
+                remoteController.classList.remove('hidden');
+                remoteController.style.display = 'inline-flex';
+                joinLauncher(result);
+            },
+            {});
+    });
+};
+
 navBtn_up.onclick = function () { sendInput(12); };
 navBtn_down.onclick = function () { sendInput(13); };
 navBtn_left.onclick = function () { sendInput(14); };

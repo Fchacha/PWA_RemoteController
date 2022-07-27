@@ -12,7 +12,8 @@ body {
 header {
 	height: fit-content;
 	max-height: 50vh;
-	width: 100vw;
+	width: 90vw;
+	margin: auto;
 }
 
 .container {
@@ -131,6 +132,15 @@ p.sent {
 
 #session * {
 	display: inline-block;
+}
+
+#scanview {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	width: 200px;
+	height: 200px;
+	margin: auto;
 }
 
 /* RemoteController */
