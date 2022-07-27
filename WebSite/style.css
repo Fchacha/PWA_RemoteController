@@ -23,20 +23,6 @@ header {
 	flex-wrap: wrap;
 }
 
-h1,
-h2 {
-	line-height: 1;
-	text-transform: uppercase;
-}
-
-h2 {
-	margin-top: 40px;
-}
-
-h2:first-of-type {
-	margin-top: 20px;
-}
-
 .logo {
 	display: block;
 	height: fit-content;
@@ -47,36 +33,6 @@ h2:first-of-type {
 img {
 	height: auto;
 	width: 100%;
-}
-
-.icon.heart {
-	color: lightcoral;
-}
-
-a {
-	color: aquamarine;
-	font-weight: bold;
-}
-
-a:hover,
-a:active {
-	color: mediumaquamarine;
-}
-
-a code {
-	color: black;
-}
-
-code {
-	background-color: aquamarine;
-	color: black;
-	font-family: monospace;
-	padding: 1px;
-	user-select: all;
-}
-
-code.image {
-	background-color: lightyellow;
 }
 
 #chat {
@@ -121,6 +77,10 @@ p.sent {
 	align-items: center;
 }
 
+#session section {
+	display: inline-flex;
+}
+
 #session {
 	position: absolute;
 	top: 0vh;
@@ -130,10 +90,6 @@ p.sent {
 	background: #ff9d9d;
 }
 
-#session * {
-	display: inline-block;
-}
-
 #scanview {
 	position: absolute;
 	left: 0px;
@@ -141,6 +97,16 @@ p.sent {
 	width: 200px;
 	height: 200px;
 	margin: auto;
+}
+
+#sessionCode {
+	font-size: 20px;
+	margin: auto;
+}
+
+#roomCode {
+	width: 100px;
+	height: 100px;
 }
 
 /* RemoteController */

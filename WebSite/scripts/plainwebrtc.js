@@ -14,6 +14,9 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
         host.style.display = "none";
         guest.style.display = "none";
         scanview.style.display = "none";
+        session.style.display = "none"
+
+        console.log("\'" + roomCode + "\'");
 
         // send room code to server
         signaler.join(roomCode);
@@ -56,7 +59,7 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
         hosting = true;
         host.style.display = "none";
         guest.style.display = "none";
-        hostRoomCode.style.display = "block"
+        hostRoomCode.style.display = "initial"
         console.log('room code: ', code);
         var qrcode = new QRCode(document.getElementById("room_qrcode"), {
             width: 100,
@@ -199,7 +202,7 @@ function Stats() {
 HostSession.onclick = hostLauncher;
 JoinSession.onclick = function () {
     remoteController.classList.remove('hidden');
-    remoteController.style.display = 'inline-flex';
+    remoteController.style.display = 'initial';
     joinLauncher(remoteOffer.value);
 };
 ScanQR.onclick = function () {
@@ -211,8 +214,8 @@ ScanQR.onclick = function () {
             result => {
                 console.log('decoded QR code:', result);
                 remoteController.classList.remove('hidden');
-                remoteController.style.display = 'inline-flex';
-                joinLauncher(result);
+                remoteController.style.display = 'initial';
+                joinLauncher(result.data);
                 qrScanner.stop();
             },
             {});
