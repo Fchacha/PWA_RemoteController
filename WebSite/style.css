@@ -9,15 +9,17 @@ body {
 	padding: 0;
 }
 
-
-.container {
-	margin: 0 auto;
-	max-width: 768px;
-	padding: 20px 5%;
+header {
+	height: fit-content;
+	max-height: 50vh;
+	width: 100vw;
 }
 
-section {
-	background-color: #171717;
+.container {
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	flex-wrap: wrap;
 }
 
 h1,
@@ -36,17 +38,14 @@ h2:first-of-type {
 
 .logo {
 	display: block;
-	max-height: 300px;
+	height: fit-content;
+	min-width: 100px;
+	max-width: 250px;
 }
 
 img {
 	height: auto;
-	max-width: 100%;
-}
-
-.logo img {
-	width: auto;
-	max-height: 300px;
+	width: 100%;
 }
 
 .icon.heart {
@@ -113,81 +112,123 @@ p.sent {
 /* Remote Controller session */
 #session,
 #session * {
-  padding: 0px;
-  margin: 0px;
-  height: fit-content;
-  width: fit-content;
-  vertical-align: middle;
-  align-items: center;
+	padding: 0px;
+	margin: 0px;
+	height: fit-content;
+	width: fit-content;
+	vertical-align: middle;
+	align-items: center;
 }
 
 #session {
-  position: absolute;
-  top: 0vh;
-  right: 0vw;
-  padding: 0.25rem;
-  width: fit-content;
-  background: #ff9d9d;
+	position: absolute;
+	top: 0vh;
+	right: 0vw;
+	padding: 0.25rem;
+	width: fit-content;
+	background: #ff9d9d;
 }
 
 #session * {
-  display: inline-block;
+	display: inline-block;
 }
 
 /* RemoteController */
 #remoteController {
-  width: 100vw;
-  height: 100vh;
+	margin: auto;
+	display: inline-flex;
+	flex-wrap: wrap;
 }
 
-#remoteController section {
-  position: relative;
-  margin: auto;
-  padding: 10%;
+
+#remoteController .controllerBlock {
+	background-color: #171717;
+	display: grid;
+	position: relative;
+	align-items: center;
+	justify-items: center;
 }
 
 @media screen and (orientation: portrait) {
-  #remoteController section {
-    width: 50vh;
-    height: 50vh;
-  }
+	#remoteController {
+		min-width: 100px;
+		min-height: 200px;
+	}
+
+	@media screen and (max-aspect-ratio: 1/2) {
+		#remoteController {
+			width: 100vw;
+			height: 200vw;
+		}
+	}
+
+	@media screen and (min-aspect-ratio: 1/2) {
+		#remoteController {
+			width: 50vh;
+			height: 100vh;
+		}
+	}
+
+	#remoteController .controllerBlock {
+		width: 100%;
+		height: 50%;
+	}
 }
 
 @media screen and (orientation: landscape) {
-  #remoteController section {
-    width: 50vw;
-    height: 50vw;
-  }
+	#remoteController {
+		min-width: 200px;
+		min-height: 100px;
+	}
+
+	@media screen and (max-aspect-ratio: 2) {
+		#remoteController {
+			width: 100vw;
+			height: 50vw;
+		}
+	}
+
+	@media screen and (min-aspect-ratio: 2) {
+		#remoteController {
+			width: 200vh;
+			height: 100vh;
+		}
+	}
+
+	#remoteController .controllerBlock {
+		width: 50%;
+		height: 100%;
+	}
 }
 
-#remoteController button {
-  height: 30%;
-  width: 30%;
-  position: absolute;
+#remoteController .controllerBlock button {
+	height: 25%;
+	aspect-ratio: 1;
+	position: absolute;
 }
 
 #remoteController #navBtn_up {
-  top: 0px;
+	top: 0px;
 }
 
 #remoteController #navBtn_down {
-  bottom: 0px;
+	bottom: 0px;
 }
 
 #remoteController #navBtn_left {
-  left: 0px;
+	left: 0px;
 }
 
 #remoteController #navBtn_right {
-  right: 0px;
+	right: 0px;
 }
 
-#remoteController #navBtn_enter {
-  left: 0%;
-}
+#remoteController #navBtn_enter {}
 
 #remoteController #navBtn_back {
-  right: 0%;
+	left: 0px;
 }
 
-#remoteController button #navBtn_more {}
+#remoteController #navBtn_more {
+	right: 0px;
+}

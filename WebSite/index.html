@@ -66,8 +66,10 @@
 
     <!-- Remote control connection -->
     <section id="session" class="hidden">
-        <textarea id="serverURL" rows="1" placeholder="localhost"></textarea>
-        <button id="changeserver">update server</button>
+        <section>
+            <textarea id="serverURL" rows="1" placeholder="localhost"></textarea>
+            <button id="changeserver">update server</button>
+        </section>
         <section id="host">
             <button id=HostSession>Host</button>
         </section>
@@ -80,13 +82,13 @@
 
     <!-- Remote Control UI -->
     <section id="remoteController" class="hidden">
-        <section id="navArrow">
+        <section id="navArrow" class="controllerBlock">
             <button id="navBtn_up">up</button>
             <button id="navBtn_down">down</button>
             <button id="navBtn_left">left</button>
             <button id="navBtn_right">right</button>
         </section>
-        <section id="navBtn">
+        <section id="navBtn" class="controllerBlock">
             <button id="navBtn_enter">enter</button>
             <button id="navBtn_back">back</button>
             <button id="navBtn_more">more</button>
