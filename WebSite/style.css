@@ -108,3 +108,86 @@ p.sent {
 	margin-right: 4pt;
 	background-color: chocolate;
 }
+
+
+/* Remote Controller session */
+#session,
+#session * {
+  padding: 0px;
+  margin: 0px;
+  height: fit-content;
+  width: fit-content;
+  vertical-align: middle;
+  align-items: center;
+}
+
+#session {
+  position: absolute;
+  top: 0vh;
+  right: 0vw;
+  padding: 0.25rem;
+  width: fit-content;
+  background: #ff9d9d;
+}
+
+#session * {
+  display: inline-block;
+}
+
+/* RemoteController */
+#remoteController {
+  width: 100vw;
+  height: 100vh;
+}
+
+#remoteController section {
+  position: relative;
+  margin: auto;
+  padding: 10%;
+}
+
+@media screen and (orientation: portrait) {
+  #remoteController section {
+    width: 50vh;
+    height: 50vh;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  #remoteController section {
+    width: 50vw;
+    height: 50vw;
+  }
+}
+
+#remoteController button {
+  height: 30%;
+  width: 30%;
+  position: absolute;
+}
+
+#remoteController #navBtn_up {
+  top: 0px;
+}
+
+#remoteController #navBtn_down {
+  bottom: 0px;
+}
+
+#remoteController #navBtn_left {
+  left: 0px;
+}
+
+#remoteController #navBtn_right {
+  right: 0px;
+}
+
+#remoteController #navBtn_enter {
+  left: 0%;
+}
+
+#remoteController #navBtn_back {
+  right: 0%;
+}
+
+#remoteController button #navBtn_more {}

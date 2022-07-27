@@ -1,16 +1,24 @@
 class SignalingAPI {
     constructor() {
-        this.apiUrl = 'localhost:3000/'
-        this.client = new WebSocket('ws://localhost:3000');
+        this.connectionAttempts = 0;
         this.onRoomCodeReceived;
         this.onRemoteSDPReceived;
+        this._setupClient();
+    }
 
-        this.client.onopen = () => {
-            console.log('WebSocket client Connected');
+    _setupClient() {
+        console.log("Try opening WebSocket");
+        this.connectionAttempts += 1
+        this.client = new WebSocket(SignalingAPI.wss + SignalingAPI.wsUri);
+
+        this.client.onopen = (ev) => {
+            console.log('WebSocket client Connected', ev);
+            session.classList.remove('hidden');
+            session.style.display = 'flexible';
         };
 
-        this.client.onclose = () => {
-            console.log('WebSocket client Disconnected');
+        this.client.onclose = (ev) => {
+            console.log('WebSocket client Disconnected', ev);
         };
 
         this.client.onmessage = (msg) => {
@@ -25,10 +33,16 @@ class SignalingAPI {
                     this.onRemoteSDPReceived(data.sdp);
             }
         };
+        this.client.onerror = (ev) => {
+            var timeout = this.connectionAttempts > 3 ? 60 : 15;
+            console.log(`Unable to connect to WebRTC Server retrying in ${timeout}s`);
+            window.setTimeout(() => {
+                this._setupClient();
+            }, 1000 * timeout);
+        }
     }
 
     host(sdp) {
-
         this.client.send(JSON.stringify({
             type: "host",
             sdp: sdp,
@@ -49,3 +63,6 @@ class SignalingAPI {
         }));
     }
 }
+
+SignalingAPI.wss = 'wss';
+SignalingAPI.wsUri = '://localhost:3002';

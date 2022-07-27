@@ -63,27 +63,34 @@
         </div>
     </header>
 
-    <section>
-        <div>
-            <div id=sessionCode></div>
-            <div id="host">
-                <button id=HostSession>Host</button>
-            </div>
-            <div id="guest">
-                <textarea id="remoteOffer" placeholder="Paste join code"></textarea>
-                <button id=JoinSession>Join</button>
-            </div>
-        </div>
-        <div id="chat"></div>
-        <div style="margin-top: 8px;">
-            <form action="" onsubmit="event.preventDefault();return sendMsg();">
-                <input id=sendTxt type="text" name="" placeholder="chat here">
-                <button type="submit">send</button>
-            </form>
-        </div>
-        <script src="scripts/signaling.js"></script>
-        <script src="scripts/plainwebrtc.js"></script>
+    <!-- Remote control connection -->
+    <section id="session" class="hidden">
+        <section id="host">
+            <button id=HostSession>Host</button>
+        </section>
+        <h2 id="sessionCode" class="enable-select"></h2>
+        <section id="guest">
+            <textarea id="remoteOffer" rows="1" placeholder="Paste join code"></textarea>
+            <button id="JoinSession">Join</button>
+        </section>
     </section>
+
+    <!-- Remote Control UI -->
+    <section id="remoteController" class="hidden">
+        <section id="navArrow">
+            <button id="navBtn_up">up</button>
+            <button id="navBtn_down">down</button>
+            <button id="navBtn_left">left</button>
+            <button id="navBtn_right">right</button>
+        </section>
+        <section id="navBtn">
+            <button id="navBtn_enter">enter</button>
+            <button id="navBtn_back">back</button>
+            <button id="navBtn_more">more</button>
+        </section>
+    </section>
+    <script src="scripts/signaling.js"></script>
+    <script src="scripts/plainwebrtc.js"></script>
 
     <footer>
     </footer>
