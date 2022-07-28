@@ -87,7 +87,8 @@ p.sent {
 	right: 0vw;
 	padding: 0.25rem;
 	width: fit-content;
-	background: #ff9d9d;
+	background: #e65c00;
+	z-index: 2;
 }
 
 #scanview {
@@ -104,9 +105,13 @@ p.sent {
 	margin: auto;
 }
 
-#roomCode {
-	width: 100px;
-	height: 100px;
+#session section #hostRoomCode {
+	display: block;
+}
+
+#room_qrcode {
+	width: 2in;
+	height: 2in;
 }
 
 /* RemoteController */
@@ -114,6 +119,7 @@ p.sent {
 	margin: auto;
 	display: inline-flex;
 	flex-wrap: wrap;
+	z-index: 1;
 }
 
 
