@@ -129,6 +129,7 @@ p.sent {
 	position: relative;
 	align-items: center;
 	justify-items: center;
+	height: auto;
 }
 
 @media screen and (orientation: portrait) {
@@ -153,7 +154,6 @@ p.sent {
 
 	#remoteController .controllerBlock {
 		width: 100%;
-		height: 50%;
 	}
 }
 
@@ -179,7 +179,6 @@ p.sent {
 
 	#remoteController .controllerBlock {
 		width: 50%;
-		height: 100%;
 	}
 }
 
