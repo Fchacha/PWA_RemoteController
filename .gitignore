@@ -1,2 +1,3 @@
 WebServer/sslcert/server.crt
 WebServer/sslcert/server.key
+*/node_modules/*
