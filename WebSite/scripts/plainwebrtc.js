@@ -59,11 +59,11 @@ var remoteInputHandle = function (input) { console.log('[REMOTE INPUT]', input);
         hosting = true;
         host.style.display = "none";
         guest.style.display = "none";
-        hostRoomCode.style.display = "initial"
+        hostRoomCode.style.display = ""
         console.log('room code: ', code);
         var qrcode = new QRCode(document.getElementById("room_qrcode"), {
-            width: 100,
-            height: 100
+            width: room_qrcode.clientWidth,
+            height: room_qrcode.clientHeight,
         });
         qrcode.makeCode(code);
     }
@@ -202,7 +202,7 @@ function Stats() {
 HostSession.onclick = hostLauncher;
 JoinSession.onclick = function () {
     remoteController.classList.remove('hidden');
-    remoteController.style.display = 'initial';
+    remoteController.style.display = '';
     joinLauncher(remoteOffer.value);
 };
 ScanQR.onclick = function () {
@@ -214,7 +214,7 @@ ScanQR.onclick = function () {
             result => {
                 console.log('decoded QR code:', result);
                 remoteController.classList.remove('hidden');
-                remoteController.style.display = 'initial';
+                remoteController.style.display = '';
                 joinLauncher(result.data);
                 qrScanner.stop();
             },

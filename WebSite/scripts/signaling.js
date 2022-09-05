@@ -14,8 +14,8 @@ class SignalingAPI {
         this.client.onopen = (ev) => {
             console.log('WebSocket client Connected', ev);
             session.classList.remove('hidden');
-            session.style.display = 'initial';
-            RTCconnection.style.display = 'initial';
+            session.style.display = '';
+            RTCconnection.style.display = '';
             serverSelection.style.display = 'none';
         };
 
@@ -37,7 +37,7 @@ class SignalingAPI {
         };
         this.client.onerror = (ev) => {
             RTCconnection.style.display = 'none';
-            serverSelection.style.display = 'initial';
+            serverSelection.style.display = '';
             var timeout = this.connectionAttempts > 3 ? 60 : 15;
             console.log(`Unable to connect to WebRTC Server retrying in ${timeout}s`);
             window.setTimeout(() => {
